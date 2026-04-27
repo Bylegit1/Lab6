@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             pbMain = new PictureBox();
+            timer1 = new System.Windows.Forms.Timer(components);
+            txtLog = new RichTextBox();
+            lblScole = new Label();
             ((System.ComponentModel.ISupportInitialize)pbMain).BeginInit();
             SuspendLayout();
             // 
@@ -36,26 +40,57 @@
             // 
             pbMain.Location = new Point(1, 1);
             pbMain.Name = "pbMain";
-            pbMain.Size = new Size(542, 447);
+            pbMain.Size = new Size(527, 447);
             pbMain.TabIndex = 0;
             pbMain.TabStop = false;
             pbMain.Click += pbMain_Click;
             pbMain.Paint += pbMain_Paint;
+            pbMain.MouseClick += pbMain_MouseClick;
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 30;
+            timer1.Tick += timer1_Tick;
+            // 
+            // txtLog
+            // 
+            txtLog.Location = new Point(527, 1);
+            txtLog.Name = "txtLog";
+            txtLog.Size = new Size(250, 447);
+            txtLog.TabIndex = 1;
+            txtLog.Text = "";
+            // 
+            // lblScole
+            // 
+            lblScole.AutoSize = true;
+            lblScole.Font = new Font("Arial Narrow", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            lblScole.Location = new Point(463, 9);
+            lblScole.Name = "lblScole";
+            lblScole.Size = new Size(58, 22);
+            lblScole.TabIndex = 2;
+            lblScole.Text = "Очки: 0";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(545, 450);
+            ClientSize = new Size(773, 450);
+            Controls.Add(lblScole);
+            Controls.Add(txtLog);
             Controls.Add(pbMain);
             Name = "Form1";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)pbMain).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private PictureBox pbMain;
+        private System.Windows.Forms.Timer timer1;
+        private RichTextBox txtLog;
+        private Label lblScole;
     }
 }
