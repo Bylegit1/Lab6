@@ -32,7 +32,7 @@
             pbMain = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
             txtLog = new RichTextBox();
-            lblScole = new Label();
+            lblScore = new Label();
             ((System.ComponentModel.ISupportInitialize)pbMain).BeginInit();
             SuspendLayout();
             // 
@@ -61,22 +61,22 @@
             txtLog.TabIndex = 1;
             txtLog.Text = "";
             // 
-            // lblScole
+            // lblScore
             // 
-            lblScole.AutoSize = true;
-            lblScole.Font = new Font("Arial Narrow", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblScole.Location = new Point(463, 9);
-            lblScole.Name = "lblScole";
-            lblScole.Size = new Size(58, 22);
-            lblScole.TabIndex = 2;
-            lblScole.Text = "Очки: 0";
+            lblScore.AutoSize = true;
+            lblScore.Font = new Font("Arial Narrow", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            lblScore.Location = new Point(442, 9);
+            lblScore.Name = "lblScore";
+            lblScore.Size = new Size(58, 22);
+            lblScore.TabIndex = 2;
+            lblScore.Text = "Очки: 0";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(773, 450);
-            Controls.Add(lblScole);
+            Controls.Add(lblScore);
             Controls.Add(txtLog);
             Controls.Add(pbMain);
             Name = "Form1";
@@ -91,6 +91,6 @@
         private PictureBox pbMain;
         private System.Windows.Forms.Timer timer1;
         private RichTextBox txtLog;
-        private Label lblScole;
+        private Label lblScore;
     }
 }

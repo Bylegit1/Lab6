@@ -13,6 +13,7 @@ namespace Lab6.Objects
         public float Y;
         public float Angle;
 
+
         public Action<BaseObject, BaseObject> OnOverlap;
 
         public BaseObject(float x, float y, float angle)
