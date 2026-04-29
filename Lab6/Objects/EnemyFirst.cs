@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace Lab6.Objects
 {
-    class Enemy : BaseObject
+    class EnemyFirst : BaseObject
     {
-        public Action<Enemy> OnLifeTimeEnemy;
+        public Action<EnemyFirst> OnLifeTimeEnemy;
 
-        public int TimeToLive = 5;  
-        public int TimerLoopsCount = 0;
+        public int TimeToLive = 240;  
 
-        public Enemy(float x, float y, float angle) : base(x, y, angle)
+        public EnemyFirst(float x, float y, float angle) : base(x, y, angle)
         {
         }
 
@@ -23,20 +22,17 @@ namespace Lab6.Objects
             g.FillEllipse(new SolidBrush(Color.BurlyWood),
                 -15, -15,
                 30, 30);
+            
+            int resultTime = TimeToLive / 40;
 
             g.DrawString(
-                TimeToLive.ToString(),
+                resultTime.ToString(),
                 new Font("Arial", 10),
                 new SolidBrush(Color.Black),
                 10, 10
             );
 
-            TimerLoopsCount++;
-            if (TimerLoopsCount == 35)  
-            {
-                TimerLoopsCount = 0;
-                TimeToLive -= 1;
-            }
+            TimeToLive--;
 
             if (TimeToLive == 0)
             {
@@ -55,9 +51,9 @@ namespace Lab6.Objects
         {
             base.Overlap(obj);
 
-            if (obj is Enemy)
+            if (obj is EnemyFirst)
             {
-                OnLifeTimeEnemy(obj as Enemy);
+                OnLifeTimeEnemy(obj as EnemyFirst);
             }
         }
     }

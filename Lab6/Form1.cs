@@ -8,7 +8,8 @@ namespace Lab6
         List<BaseObject> objects = new();
         Player player;
         Marker marker;
-        Enemy enemy;
+        EnemyFirst enemyFirst;
+        EnemySecond enemySecond;
 
         int score = 0;
         Random random = new Random();
@@ -30,11 +31,19 @@ namespace Lab6
                 marker = null;
             };
 
-            player.OnEnemyOverlap += (e) =>
+            player.OnEnemyFirstOverlap += (e) =>
             {
                 score++;
                 txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Враг уничтожен! Очки: {score}\n" + txtLog.Text;
                 lblScore.Text = $"Очки: {score}"; 
+                objects.Remove(e);
+                CreateEnemy();
+            };
+            player.OnEnemySecondOverlap += (e) =>
+            {
+                score++;
+                txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Враг уничтожен! Очки: {score}\n" + txtLog.Text;
+                lblScore.Text = $"Очки: {score}";
                 objects.Remove(e);
                 CreateEnemy();
             };
@@ -46,14 +55,26 @@ namespace Lab6
 
         private void CreateEnemy()
         {
-            Enemy newEnemy = new Enemy(random.Next(30, pbMain.Width - 30), random.Next(30, pbMain.Height - 30), 0);
-            objects.Add(newEnemy);
-            newEnemy.OnLifeTimeEnemy += (e) =>
+            if (random.Next(0, 2) == 0)
             {
-                objects.Remove(e);
-                CreateEnemy();
-            };
-
+                EnemyFirst newEnemyFirst = new EnemyFirst(random.Next(30, pbMain.Width - 30), random.Next(30, pbMain.Height - 30), 0);
+                objects.Add(newEnemyFirst);
+                newEnemyFirst.OnLifeTimeEnemy += (e) =>
+                {
+                    objects.Remove(e);
+                    CreateEnemy();
+                };
+            }
+            else
+            {
+                EnemySecond newEnemySecond = new EnemySecond(random.Next(30, pbMain.Width - 30), random.Next(30, pbMain.Height - 30), 0);
+                objects.Add(newEnemySecond);
+                newEnemySecond.OnSizeEnemy += (e) =>
+                {
+                    objects.Remove(e);
+                    CreateEnemy();
+                };
+            }
         }
 
         private void pbMain_Paint(object sender, PaintEventArgs e)
@@ -83,7 +104,30 @@ namespace Lab6
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            
+            if (marker != null)
+            {
+                float dx = marker.X - player.X;
+                float dy = marker.Y - player.Y;
+
+                float length = MathF.Sqrt(dx * dx + dy * dy);
+                dx /= length;
+                dy /= length;
+
+                player.X += dx * 2;
+                player.Y += dy * 2;
+
+                player.vX += dx * 0.5f;
+                player.vY += dy * 0.5f;
+
+                player.Angle = 90 - MathF.Atan2(player.vX, player.vY) * 180 / MathF.PI;
+            }
+
+            player.vX += -player.vX * 0.1f;
+            player.vY += -player.vY * 0.1f;
+
+            player.X += player.vX;
+            player.Y += player.vY;
+
             pbMain.Invalidate();
         }
 

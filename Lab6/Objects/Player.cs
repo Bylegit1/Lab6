@@ -10,7 +10,8 @@ namespace Lab6.Objects
     class Player : BaseObject
     {
         public Action<Marker> OnMarkerOverlap;
-        public Action<Enemy> OnEnemyOverlap;
+        public Action<EnemyFirst> OnEnemyFirstOverlap;
+        public Action<EnemySecond> OnEnemySecondOverlap;
         public float vX, vY;
 
         public Player(float x, float y, float angle) : base(x, y, angle)
@@ -47,9 +48,13 @@ namespace Lab6.Objects
             {
                 OnMarkerOverlap(obj as Marker);
             }
-            else if(obj is Enemy) 
+            else if (obj is EnemyFirst)
             {
-                OnEnemyOverlap(obj as Enemy);
+                OnEnemyFirstOverlap(obj as EnemyFirst);
+            }
+            else if (obj is EnemySecond)
+            {
+                OnEnemySecondOverlap(obj as EnemySecond);
             }
         }
     }
